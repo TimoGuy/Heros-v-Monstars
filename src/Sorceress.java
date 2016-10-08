@@ -1,8 +1,10 @@
 import java.util.Random;
 
 public class Sorceress extends Hero {
+	public static String soreName = "Sorceress";
+	
 	public Sorceress() {
-		super("Sorceress", 75, 5, 25, 45, 0.7, 0.3);
+		super(soreName, 75, 5, 25, 45, 0.7, 0.3);
 	}
 
 	public void heal(DungeonCharacter other) {
