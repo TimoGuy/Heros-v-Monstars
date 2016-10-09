@@ -7,7 +7,7 @@ public class Sorceress extends Hero {
 		super(soreName, 75, 5, 25, 45, 0.7, 0.3);
 	}
 
-	public void heal(DungeonCharacter other) {
+	public void heal() {
 		Random rando = new Random();
 		
 		// Define healing ranges
@@ -18,7 +18,7 @@ public class Sorceress extends Hero {
 		int heal = rando.nextInt(difference + 1) + minHeal;
 
 		// Apply and report
-		other.addHitPts(heal);
-		System.out.println(Name + " healed " + heal + "HP on " + other.getName() + "!");
+		System.out.println(Name + " healed " + heal + "HP on itself!");
+		addHitPts(heal);
 	}
 }

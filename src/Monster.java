@@ -31,8 +31,8 @@ public abstract class Monster extends DungeonCharacter {
 			int heal = rando.nextInt(difference + 1) + MinHeal;
 		
 			// Apply and report
-			addHitPts(heal);
 			System.out.println(Name + " healed " + heal + "HP on itself!");
+			addHitPts(heal);
 		}
 	}
 }

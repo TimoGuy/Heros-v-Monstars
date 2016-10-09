@@ -21,8 +21,8 @@ public class Warrior extends Hero {
 			int damage = rando.nextInt(difference + 1) + minDamage;
 
 			// Apply and report
-			other.addHitPts(-damage);
 			System.out.println(Name + "\'s CRUSHING BLOW caused " + damage + " damage on " + other.getName() + "!");
+			other.addHitPts(-damage);
 		} else {
 			// Say couldn't hit
 			System.out.println(Name + "\'s CRUSHING BLOW missed.");
