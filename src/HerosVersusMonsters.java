@@ -80,7 +80,9 @@ public class HerosVersusMonsters {
 		}
 		
 		// Rename to Japanese
-		renameToJapanese(Player, Enemy);
+		if (IsJapanese) {
+			renameToJapanese(Player, Enemy);
+		}
 		
 		// Welcome player and enemy!
 		System.out.println(IsJapanese ? "ようこそ " + Player.getName() + " (" + Player.getTypeName() + ")!\n君の敵の名前は" + Enemy.getName() + " (" + Enemy.getTypeName() + ")!!\n\n"
@@ -121,6 +123,10 @@ public class HerosVersusMonsters {
 				}
 			}
 			
+			// See if dead yet
+			Player.respondToAttack();
+			Enemy.respondToAttack();
+			
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -132,6 +138,10 @@ public class HerosVersusMonsters {
 			if (DeadChar == null) {
 				Enemy.attack(Player);
 			}
+			
+			// See if dead yet
+			Player.respondToAttack();
+			Enemy.respondToAttack();
 			
 			try {
 				Thread.sleep(500);

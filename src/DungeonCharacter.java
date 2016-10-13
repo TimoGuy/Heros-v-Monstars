@@ -58,9 +58,6 @@ public abstract class DungeonCharacter {
 			// Apply and report
 			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "のアタックが" : "\'s attack caused ") + damage + (HerosVersusMonsters.IsJapanese ? "ダメージを" : " damage on ") + other.getName() + (HerosVersusMonsters.IsJapanese ? "にやりました!" : "!"));
 			other.addHitPts(-damage);
-
-			// See if dead yet
-			other.respondToAttack();
 		} else {
 			// Say couldn't hit
 			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "のアタックがミスした" : "\'s attack missed."));
@@ -70,7 +67,7 @@ public abstract class DungeonCharacter {
 	/**
 	 * To tell the game that the character has died
 	 */
-	private void respondToAttack() {
+	public void respondToAttack() {
 		// Check if died
 		if (HitPts <= 0) {
 			HerosVersusMonsters.DeadChar = this;
