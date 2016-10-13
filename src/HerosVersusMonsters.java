@@ -8,16 +8,27 @@ public class HerosVersusMonsters {
 	public static boolean IsJapanese = false;
 	public static DungeonCharacter DeadChar = null;
 
-	private static void renameToJapanese() {
-		IsJapanese = true;
-
-		Warrior.warName = "正義の退化";
-		Sorceress.soreName = "何でこの人は女性";
-		Thief.thiName = "失敗から僕のおなら";
-
-		Ogre.ogName = "シュレックは僕の命と冷やし中華";
-		Gremlin.gremName = "外国人さっき言うたでしょう";
-		Skeleton.skelName = "骨人でも人魚になったと僕はナット大好きね";
+	private static void renameToJapanese(Hero player, Monster enemy) {
+		// Rename player type
+		if (player instanceof Warrior) {
+			((Warrior)player).setTypeName("戦士");
+		} else if (player instanceof Sorceress) {
+			((Sorceress)player).setTypeName("魔女");
+		} else if (player instanceof Thief) {
+			((Thief)player).setTypeName("泥棒");
+		}
+		
+		// Rename enemy name and type
+		if (enemy instanceof Ogre) {
+			((Ogre)enemy).setName("シュレックは僕の命と冷やし中華");
+			((Ogre)enemy).setTypeName("鬼");
+		} else if (enemy instanceof Gremlin) {
+			((Gremlin)enemy).setName("外国人さっき言うたでしょう");
+			((Gremlin)enemy).setTypeName("グレムリン");
+		} else if (enemy instanceof Skeleton) {
+			((Skeleton)enemy).setName("骨人でも人魚になったと僕はナット大好きね");
+			((Skeleton)enemy).setTypeName("スケルトン");
+		}
 	}
 
 	public static void main(String... argv) {
@@ -27,19 +38,24 @@ public class HerosVersusMonsters {
 
 		String lang = scan.next();
 		if (lang.toLowerCase().startsWith("j")) {
-			renameToJapanese();
+			IsJapanese = true;
 		}
-
+		
+		// Type name
+		System.out.println(IsJapanese ? "君の名前は何ですか?"
+				: "What is your name?");
+		String name = scan.next();
+		
 		// Choose the hero
 		System.out.println(IsJapanese ? "どっちのヒーロなりますか？\n(W)戦士\t(S)魔女\t(T)泥棒"
 				: "Which hero are you?\n(W)arrior\t(S)orceress\t(T)hief");
 		String heroChoice = scan.next();
 		if (heroChoice.toLowerCase().startsWith("w")) {
-			Player = new Warrior();
+			Player = new Warrior(name);
 		} else if (heroChoice.toLowerCase().startsWith("s")) {
-			Player = new Sorceress();
+			Player = new Sorceress(name);
 		} else {
-			Player = new Thief();
+			Player = new Thief(name);
 		}
 
 		// Select an enemy
@@ -63,9 +79,12 @@ public class HerosVersusMonsters {
 			break;
 		}
 		
+		// Rename to Japanese
+		renameToJapanese(Player, Enemy);
+		
 		// Welcome player and enemy!
-		System.out.println(IsJapanese ? "ようこそ" + Player.getName() + "!\n君の敵の名前は" + Enemy.getName() + "!!\n\n"
-				: "Welcome, " + Player.getName() + "!\nYour opponent\'s name is " + Enemy.getName() + "!!\n\n");
+		System.out.println(IsJapanese ? "ようこそ " + Player.getName() + " (" + Player.getTypeName() + ")!\n君の敵の名前は" + Enemy.getName() + " (" + Enemy.getTypeName() + ")!!\n\n"
+				: "Welcome, " + Player.getName() + " (" + Player.getTypeName() + ")!\nYour opponent\'s name is " + Enemy.getName() + " (" + Enemy.getTypeName() + ")!!\n\n");
 		
 		try {
 			Thread.sleep(1000);

@@ -1,10 +1,8 @@
 import java.util.Random;
 
 public class Thief extends Hero {
-	public static String thiName = "Thief";
-	
-	public Thief() {
-		super(thiName, 75, 6, 20, 40, 0.8, 0.4);
+	public Thief(String name) {
+		super(name, "Thief", 75, 6, 20, 40, 0.8, 0.4);
 	}
 
 	public void surpriseAttack(DungeonCharacter other) {

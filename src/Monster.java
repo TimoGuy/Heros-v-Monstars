@@ -4,9 +4,9 @@ public abstract class Monster extends DungeonCharacter {
 	protected double ChanceToHeal;
 	protected int MinHeal, MaxHeal;
 	
-	public Monster(String name, int hitPts, int attackSpeed, int minDamage, int maxDamage, double attackSuccessChance,
+	public Monster(String name, String typeName, int hitPts, int attackSpeed, int minDamage, int maxDamage, double attackSuccessChance,
 			int minHeal, int maxHeal, double chanceToHeal) {
-		super(name, hitPts, attackSpeed, minDamage, maxDamage, attackSuccessChance);
+		super(name, typeName, hitPts, attackSpeed, minDamage, maxDamage, attackSuccessChance);
 		MinHeal = minHeal;
 		MaxHeal = maxHeal;
 		ChanceToHeal = chanceToHeal;

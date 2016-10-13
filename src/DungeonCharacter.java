@@ -1,16 +1,17 @@
 import java.util.Random;
 
 public abstract class DungeonCharacter {
-	protected String Name;
+	protected String Name, TypeName;
 	protected int HitPts;
 	protected int AttackSpeed;
 
 	protected int MinDamage, MaxDamage;
 	protected double AttackSuccessChance;
 
-	public DungeonCharacter(String name, int hitPts, int attackSpeed, int minDamage, int maxDamage,
+	public DungeonCharacter(String name, String typeName, int hitPts, int attackSpeed, int minDamage, int maxDamage,
 			double attackSuccessChance) {
 		Name = name;
+		TypeName = typeName;
 		HitPts = hitPts;
 		AttackSpeed = attackSpeed;
 		MinDamage = minDamage;
@@ -18,6 +19,18 @@ public abstract class DungeonCharacter {
 		AttackSuccessChance = attackSuccessChance;
 	}
 
+	public void setTypeName(String typeName) {
+		TypeName = typeName;
+	}
+	
+	public String getTypeName() {
+		return TypeName;
+	}
+	
+	public void setName(String name) {
+		Name = name;
+	}
+	
 	public String getName() {
 		return Name;
 	}

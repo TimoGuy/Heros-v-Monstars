@@ -1,10 +1,8 @@
 import java.util.Random;
 
 public class Warrior extends Hero {
-	public static String warName = "Warrior";
-	
-	public Warrior() {
-		super(warName, 125, 4, 35, 60, 0.8, 0.2);
+	public Warrior(String name) {
+		super(name, "Warrior", 125, 4, 35, 60, 0.8, 0.2);
 	}
 
 	public void crushingBlow(DungeonCharacter other) {
