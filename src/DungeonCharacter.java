@@ -24,7 +24,7 @@ public abstract class DungeonCharacter {
 
 	public void addHitPts(int deltaHP) {
 		HitPts += deltaHP;
-		System.out.println(Name + " now has " + Math.max(0, HitPts) + "HP!");
+		System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "は今に" : " now has ") + Math.max(0, HitPts) + (HerosVersusMonsters.IsJapanese ? "HPあります!" : "HP!"));
 	}
 
 	/**
@@ -43,14 +43,14 @@ public abstract class DungeonCharacter {
 			int damage = rando.nextInt(difference + 1) + MinDamage;
 
 			// Apply and report
-			System.out.println(Name + "\'s attack caused " + damage + " damage on " + other.getName() + "!");
+			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "のアタックが" : "\'s attack caused ") + damage + (HerosVersusMonsters.IsJapanese ? "ダメージを" : " damage on ") + other.getName() + (HerosVersusMonsters.IsJapanese ? "にやりました!" : "!"));
 			other.addHitPts(-damage);
 
 			// See if dead yet
 			other.respondToAttack();
 		} else {
 			// Say couldn't hit
-			System.out.println(Name + "\'s attack missed.");
+			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "のアタックがミスした" : "\'s attack missed."));
 		}
 	}
 

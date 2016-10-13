@@ -21,11 +21,11 @@ public class Warrior extends Hero {
 			int damage = rando.nextInt(difference + 1) + minDamage;
 
 			// Apply and report
-			System.out.println(Name + "\'s CRUSHING BLOW caused " + damage + " damage on " + other.getName() + "!");
+			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "の CRUSHING BLOW が" : "\'s CRUSHING BLOW caused ") + damage + (HerosVersusMonsters.IsJapanese ? "ダメージを" : " damage on ") + other.getName() + (HerosVersusMonsters.IsJapanese ? "にやりました!" : "!"));
 			other.addHitPts(-damage);
 		} else {
 			// Say couldn't hit
-			System.out.println(Name + "\'s CRUSHING BLOW missed.");
+			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "の CRUSHING BLOW がミスした" : "\'s CRUSHING BLOW missed."));
 		}
 	}
 }

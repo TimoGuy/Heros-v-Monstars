@@ -18,7 +18,7 @@ public class Sorceress extends Hero {
 		int heal = rando.nextInt(difference + 1) + minHeal;
 
 		// Apply and report
-		System.out.println(Name + " healed " + heal + "HP on itself!");
+		System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "は HEAL つかった! ": " uses HEAL to heal ") + heal + (HerosVersusMonsters.IsJapanese ? "HPを自分に癒やしやりました!" : "HP on itself!"));
 		addHitPts(heal);
 	}
 }

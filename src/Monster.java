@@ -31,7 +31,7 @@ public abstract class Monster extends DungeonCharacter {
 			int heal = rando.nextInt(difference + 1) + MinHeal;
 		
 			// Apply and report
-			System.out.println(Name + " healed " + heal + "HP on itself!");
+			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "は自分に" : " healed ") + heal + (HerosVersusMonsters.IsJapanese ? "HPを癒やしやりました!" : "HP on itself!"));
 			addHitPts(heal);
 		}
 	}

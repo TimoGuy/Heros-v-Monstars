@@ -23,7 +23,7 @@ public class HerosVersusMonsters {
 	public static void main(String... argv) {
 		// Select the language
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Please select a language:\n(E)nglish\t(J)apanese");
+		System.out.println("Please select a language:\n(E)nglish\t(J)日本語");
 
 		String lang = scan.next();
 		if (lang.toLowerCase().startsWith("j")) {
@@ -77,12 +77,12 @@ public class HerosVersusMonsters {
 		// Game loop
 		while (DeadChar == null) {
 			// Show stats of fight
-			System.out.println("\n\n==NEW ROUND==");
+			System.out.println("\n\n" + (IsJapanese ? "==新しラウンド==" : "==NEW ROUND=="));
 			
 			// Player's turn
 			if (DeadChar == null) {
 				// Show menu options
-				System.out.println("What do you do?\n(A)ttack\t(S)pecial move\t(Q)uit/run away");
+				System.out.println(IsJapanese ? "何やりますか？\n(A)アタック\t(S)特殊攻撃\t(Q)逃げる" : "What do you do?\n(A)ttack\t(S)pecial move\t(Q)uit/run away");
 				String attack = scan.next();
 				if (attack.toLowerCase().startsWith("a")) {
 					// Attack
@@ -97,7 +97,7 @@ public class HerosVersusMonsters {
 						((Thief)Player).surpriseAttack(Enemy);
 					}
 				} else if (attack.toLowerCase().startsWith("q")) {
-					// Quit
+					// Quit by breaking the loop with no winner
 					break;
 				}
 			}
@@ -122,6 +122,9 @@ public class HerosVersusMonsters {
 			}
 		}
 		
+		// Close scanner
+		scan.close();
+		
 		// See who died
 		if (DeadChar instanceof Monster) {
 			// Player won (boo)
@@ -145,7 +148,7 @@ public class HerosVersusMonsters {
 			System.out.println(lose);
 		} else {
 			// The player must've quit, then
-			System.out.println("\n\n\nIt\'s sad to see you go, loser.");
+			System.out.println("\n\n\n" + (IsJapanese ? "なぜ逃げるかな？ 君はほっとけ物！" : "It\'s sad to see you go, loser."));
 		}
 	}
 }
