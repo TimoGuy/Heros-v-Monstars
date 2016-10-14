@@ -84,6 +84,12 @@ public class HerosVersusMonsters {
 			renameToJapanese(Player, Enemy);
 		}
 		
+		// Calculate turns
+		double smallerSpeed = Math.min(Player.AttackSpeed, Enemy.AttackSpeed);
+		double playerTurns = Player.AttackSpeed / smallerSpeed;
+		double enemyTurns = Enemy.AttackSpeed / smallerSpeed;
+		TurnsStruct currentTurns = new TurnsStruct();
+		
 		// Welcome player and enemy!
 		System.out.println(IsJapanese ? "ようこそ " + Player.getName() + " (" + Player.getTypeName() + ")!\n君の敵の名前は" + Enemy.getName() + " (" + Enemy.getTypeName() + ")!!\n\n"
 				: "Welcome, " + Player.getName() + " (" + Player.getTypeName() + ")!\nYour opponent\'s name is " + Enemy.getName() + " (" + Enemy.getTypeName() + ")!!\n\n");
@@ -97,13 +103,17 @@ public class HerosVersusMonsters {
 		
 		// Game loop
 		while (DeadChar == null) {
-			// Show stats of fight
-			System.out.println("\n\n" + (IsJapanese ? "==新しラウンド==" : "==NEW ROUND=="));
+			// Show new round and add new turns
+			System.out.print("\n\n" + (IsJapanese ? "==新しラウンド==" : "==NEW ROUND=="));
+			currentTurns.PlayerTurns += playerTurns;
+			currentTurns.EnemyTurns += enemyTurns;
 			
 			// Player's turn
-			if (DeadChar == null) {
+			while (DeadChar == null && currentTurns.PlayerTurns - 1.0 >= 0.0) {
+				currentTurns.PlayerTurns -= 1.0;
+				
 				// Show menu options
-				System.out.println(IsJapanese ? "何やりますか？\n(A)アタック\t(S)特殊攻撃\t(Q)逃げる" : "What do you do?\n(A)ttack\t(S)pecial move\t(Q)uit/run away");
+				System.out.println(IsJapanese ? "\n\n何やりますか？\n(A)アタック\t(S)特殊攻撃\t(Q)逃げる" : "\n\nWhat do you do?\n(A)ttack\t(S)pecial move\t(Q)uit/run away");
 				String attack = scan.next();
 				if (attack.toLowerCase().startsWith("a")) {
 					// Attack
@@ -115,39 +125,40 @@ public class HerosVersusMonsters {
 					} else if (Player instanceof Sorceress) {
 						((Sorceress)Player).heal();
 					} else if (Player instanceof Thief) {
-						((Thief)Player).surpriseAttack(Enemy);
+						((Thief)Player).surpriseAttack(Enemy, currentTurns);
 					}
 				} else if (attack.toLowerCase().startsWith("q")) {
-					// Quit by breaking the loop with no winner
-					break;
+					// Quit by setting the dead character to an anon obj
+					DeadChar = new DungeonCharacter("", "", -1, -1, -1, -1, -1) { };
+				}
+				
+				// See if dead yet
+				Player.respondToAttack();
+				Enemy.respondToAttack();
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					System.exit(3);
 				}
 			}
 			
-			// See if dead yet
-			Player.respondToAttack();
-			Enemy.respondToAttack();
-			
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(3);
-			}
-			
 			// Enemy's turn
-			if (DeadChar == null) {
+			while (DeadChar == null && currentTurns.EnemyTurns - 1.0 >= 0.0) {
+				currentTurns.EnemyTurns -= 1.0;
 				Enemy.attack(Player);
-			}
-			
-			// See if dead yet
-			Player.respondToAttack();
-			Enemy.respondToAttack();
-			
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(4);
+				
+				// See if dead yet
+				Player.respondToAttack();
+				Enemy.respondToAttack();
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					System.exit(4);
+				}
 			}
 		}
 		

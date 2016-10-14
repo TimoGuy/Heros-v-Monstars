@@ -5,7 +5,7 @@ public class Thief extends Hero {
 		super(name, "Thief", 75, 6, 20, 40, 0.8, 0.4);
 	}
 
-	public void surpriseAttack(DungeonCharacter other) {
+	public void surpriseAttack(DungeonCharacter other, TurnsStruct turns) {
 		Random rando = new Random();
 		
 		double chanceOfSuccess = rando.nextDouble();
@@ -15,7 +15,9 @@ public class Thief extends Hero {
 			attack(other);
 			
 			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "がも一つの番あつまりました..." : " gets another turn..."));
-			// TODO: add another round for thief
+			
+			// Add another round to thief
+			turns.PlayerTurns += 1.0;
 		} else if (chanceOfSuccess < 0.8) {
 			// Normal attack (40%)
 			System.out.println(Name + (HerosVersusMonsters.IsJapanese ? "は SURPRISE ATTACK やれへんかった、しかし、普通のアタックできた..." : " couldn\'t find an opening for SURPRISE ATTACK, but was able to still land a regular attack..."));
